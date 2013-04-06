@@ -86,7 +86,7 @@ HRESULT CWin::Create()
     ::RegisterClassEx(&wcex);
 
     m_hWnd = ::CreateWindowEx(m_dwExWindowStyle,_T("Skeleton"), m_strWindowTitle, m_dwWindowStyle,
-        m_PosX, m_PosY, 960, 320, NULL, m_hMenu, m_hInstance, NULL);
+        m_PosX, m_PosY, m_dwCreationWidth, m_dwCreationHeight, NULL, m_hMenu, m_hInstance, NULL);
 
     if (!m_hWnd)
     {
@@ -99,7 +99,8 @@ HRESULT CWin::Create()
     GetWindowRect(m_hWnd, &rcWindow);
     ptDiff.x = (rcWindow.right - rcWindow.left) - rcClient.right;
     ptDiff.y = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
-    MoveWindow(m_hWnd, rcWindow.left, rcWindow.top, 800 + ptDiff.x, 600 + ptDiff.y, TRUE);
+    MoveWindow(m_hWnd, rcWindow.left, rcWindow.top, m_dwCreationWidth + ptDiff.x, 
+        m_dwCreationHeight + ptDiff.y, TRUE);
 
     ::ShowWindow(m_hWnd, m_dwCreationFlags);
     ::UpdateWindow(m_hWnd);

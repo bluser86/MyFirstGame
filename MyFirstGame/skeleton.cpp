@@ -1,4 +1,5 @@
 #include "skeleton.h"
+#include "config.h"
 
 
 DWORD dwFrames;
@@ -18,6 +19,9 @@ CSkeleton::CSkeleton()
     dwLastUpdateTime = 0;
     dwElapsedTime = 0;
     szFPS[0] = '\0';
+
+    ifstream ifs("config.txt");
+    Config::Instance().Parse(ifs);
 }
 
 CSkeleton::~CSkeleton()
@@ -40,12 +44,14 @@ LRESULT CSkeleton::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     PAINTSTRUCT ps;
     HDC hdc;
-
-
+    
     switch (uMsg)
     {
     case WM_CREATE:
         {
+            // Lets get some window settings!
+            Config::Instance().GetResolution(m_dwCreationWidth, m_dwCreationHeight);
+
             // Get device context that belongs to our client window.
             hdc = ::GetDC(hWnd);
 
@@ -59,7 +65,7 @@ LRESULT CSkeleton::MsgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             // Create a canvas for us to draw on based on the client window
             // device context.
-            hBitmap = CreateCompatibleBitmap(hdc, (32*30), (32*10)*3);
+            hBitmap = CreateCompatibleBitmap(hdc, m_dwCreationWidth, m_dwCreationHeight);
 
             // Select the canvas into the backbuffer device context.
             SelectObject(hdcBackBuffer, hBitmap);

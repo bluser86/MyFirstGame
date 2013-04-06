@@ -74,14 +74,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="config.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="skeleton.cpp" />
     <ClCompile Include="win.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="config.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="skeleton.h" />
     <ClInclude Include="win.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
